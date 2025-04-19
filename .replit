@@ -9,6 +9,18 @@ requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
 channel = "stable-24_11"
 
 [deployment]
-run = ["node", "index.js"]
+run = ["sh", "-c", "serve hearthcliff-flash-forge-decks-24/dist"]
 deploymentTarget = "autoscale"
 ignorePorts = false
+build = ["sh", "-c", "cd hearthcliff-flash-forge-decks-24 && npm install && npm run build"]
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Build"
+author = 41506055
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd hearthcliff-flash-forge-decks-24 && npm install && npm run build"
